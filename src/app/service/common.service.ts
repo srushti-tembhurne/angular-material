@@ -16,7 +16,7 @@ export class CommonService {
   userName: string;
   token: string;
   // visible:boolean = true;
-  constructor(private http: Http, private router: Router,private dialog:MdDialog) {
+  constructor(private http: Http, private router: Router, private dialog: MdDialog) {
     this.navFlag = false;
   }
   setUserName(name) {
@@ -60,6 +60,13 @@ export class CommonService {
     headers.append('x-access-token', this.getToken());
     headers.append('username', this.getUserName());
     return this.http.delete(this.baseUrl + url, { headers: headers }).map((res: Response) => { return res.json(); });
+  }
+  updateService(url: string, data: any) {
+    let headers = new Headers();
+    headers.append('x-access-token', this.getToken());
+    headers.append('username', this.getUserName());
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(this.baseUrl + url, data, { headers: headers }).map((res: Response) => { return res.json(); });
   }
   getBrowserInfo() {
     var nVer = navigator.appVersion;
@@ -168,71 +175,70 @@ export class CommonService {
     if (window.sessionStorage) {
       this.userDetails = window.sessionStorage.getItem('username');
     }
-    if (this.userDetails == "undefined" ||this.userDetails==null ||this.userDetails=="") {
+    if (this.userDetails == "undefined" || this.userDetails == null || this.userDetails == "") {
       this.router.navigateByUrl('/login');
     } else {
-      
+
       if (pathName.indexOf('login') > -1) {
-        this.router.navigateByUrl('/home');      
+        this.router.navigateByUrl('/home');
       } else {
-        this.router.navigateByUrl(pathName);       
+        this.router.navigateByUrl(pathName);
       }
 
     }
   }
   onlogout() {
-   /* this.deleteService('/api/v1/login').subscribe(
+    /* this.deleteService('/api/v1/login').subscribe(
+       data => {
+         if (data.success) {
+           let storage = window.sessionStorage;
+           storage.setItem('token', '');
+           storage.setItem('expiry_in', '');
+           storage.setItem('username', '');
+           return data;          
+         }
+ 
+       },
+       err => { 
+         if(!err.status){
+           return err;
+         }
+        },
+       () => { });*/
+    this.deleteService('/api/v1/login').subscribe(
       data => {
-        if (data.success) {
+        if (data.status) {
           let storage = window.sessionStorage;
           storage.setItem('token', '');
           storage.setItem('expiry_in', '');
           storage.setItem('username', '');
-          return data;          
+          this.router.navigateByUrl('/login');
         }
 
       },
-      err => { 
-        if(!err.status){
-          return err;
-        }
-       },
-      () => { });*/
-       this.deleteService('/api/v1/login').subscribe(
-      data => {
-        if (data.status) {
-          let storage = window.sessionStorage;
-          /*storage.setItem('token', '');
-          storage.setItem('expiry_in', '');
-          storage.setItem('username', '');
-          this.router.navigateByUrl('/login');*/
-        }
-
-      },
-      err => {       
-        let res=JSON.parse(err._body);
+      err => {
+        let res = JSON.parse(err._body);
         if (!res.status) {
           let storage = window.sessionStorage;
           storage.setItem('token', '');
           storage.setItem('expiry_in', '');
           storage.setItem('username', '');
-         this.showDialog(""+err.status +" "+res.message+" ");
+          this.showDialog("" + err.status + " " + res.message + " ");
         }
       },
       () => { });
   }
   showDialog(msg) {
-     let dialogRef = this.dialog.open(DialogComponent, {           
-            data: {
-                message: msg
-            }
-        });
-        dialogRef.afterClosed().subscribe(result=>{
-          this.router.navigateByUrl('/login');
-        });
+    let dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        message: msg
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigateByUrl('/login');
+    });
   }
   onCancel() {
-    //  this.open = false; // for create VM component
     this.router.navigateByUrl('/');
   }
 }

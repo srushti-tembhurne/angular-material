@@ -92,15 +92,7 @@ export class RequestComponent implements OnInit {
   ngOnInit() {
     this.CS.isLoggedIn();
     this.getData();
-  }
-  onSaveConfirm(event): void {
-    if (window.confirm('Are you sure you want to save?')) {
-      console.log(event.newData);
-      event.confirm.resolve(event.newData);
-    } else {
-      event.confirm.reject();
-    }
-  }
+  } 
 
 }
 
