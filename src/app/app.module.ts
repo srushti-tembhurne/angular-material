@@ -4,9 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-//import { Ng2TableModule } from 'ng2-table';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-//import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import 'hammerjs';
 import 'chart.js';
 
@@ -22,6 +20,8 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { RequestComponent } from './component/request/request.component';
 import { ResourcesComponent } from './component/resources/resources.component';
 import { DialogComponent } from './component/dialog/dialog.component';
+import { InventoryComponent } from './component/inventory/inventory.component';
+import { ConstructionComponent } from './component/construction/construction.component';
 
 
 
@@ -36,7 +36,9 @@ import { DialogComponent } from './component/dialog/dialog.component';
     DashboardComponent,
     RequestComponent,
     ResourcesComponent,
-    DialogComponent
+    DialogComponent,
+    InventoryComponent,
+    ConstructionComponent
   ],
   imports: [
     BrowserModule,

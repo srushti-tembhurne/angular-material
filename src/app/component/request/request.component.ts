@@ -15,34 +15,39 @@ export class RequestComponent implements OnInit {
       confirmSave: true
     },
     columns: {
-      cores: {
-        title: 'CPU'
-      },
-      id: {
+      a_id: {
         title: 'ID'
       },
-      memory: {
-        title: 'Memory'
-      },
-      os: {
-        title: 'Operting System'
-      },
-      storage: {
-        title: 'Storage'
-      },
-      vmName: {
+       b_vmName: {
         title: 'VM Name',
         editable: false
+      },
+      c_cores: {
+        title: 'CPU'
+      },
+      
+      d_memory: {
+        title: 'Memory'
+      },
+      e_storage: {
+        title: 'Storage'
+      },
+      f_os: {
+        title: 'Operting System'
+      },
+      g_status:{
+        title:'Status'
       }
+     
     },
     actions: {
       add: false,
-      edit: true,
+      edit: false,
       delete: false
     },
     pager: {
-      display: true,
-      perPage: 5
+      display: true
+     
     }
   };
 
@@ -64,16 +69,17 @@ export class RequestComponent implements OnInit {
             let props = "parameter_" + i;
             paramArray[props] = DataArray[i].parameters;
             let tempObj = {};
-            for (let j = 0; j < paramArray[props].length; j++) {
-              tempObj[paramArray[props][j].name] = paramArray[props][j].value;
+            for (var j = 0; j < paramArray[props].length; j++) {
+              let prop_name=String.fromCharCode(98+j)+"_"+paramArray[props][j].name;
+              tempObj[prop_name] = paramArray[props][j].value;
             }
-            tempObj["id"] = i + 1;
+            tempObj["a_id"] = i + 1;
+            tempObj[String.fromCharCode(98+j)+"_"+"status"]=DataArray[i].status;
             this.Requestdata.push(tempObj);
           }
-          console.log(this.Requestdata);
           this.data = new LocalDataSource();
           this.data.load(this.Requestdata);
-          //this.data.setPaging(1,7);
+          
 
         } else if (!status && (str.includes("Failed to authenticate token") || str.includes("no token found"))/*(str.indexOf("Failed to authenticate token")>-1||str.indexOf("no token found"))*/) {
           this.CS.onlogout();
@@ -89,7 +95,7 @@ export class RequestComponent implements OnInit {
   }
   onSaveConfirm(event): void {
     if (window.confirm('Are you sure you want to save?')) {
-      console.log(event.newDate);
+      console.log(event.newData);
       event.confirm.resolve(event.newData);
     } else {
       event.confirm.reject();
