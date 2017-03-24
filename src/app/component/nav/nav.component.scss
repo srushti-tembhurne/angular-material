@@ -47,6 +47,9 @@ nav h6,material-icons{
     background: rgba(0,0,0,.32);
     color: #fff;
 }
+nav h6:hover{
+    cursor:pointer;
+}
 
 nav ul li > a{
    box-sizing: border-box;
