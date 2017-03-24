@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-10 offset-1" >
+    <md-card class="col-sx-5 col-sm-5 col-md-4 col-lg-4" *ngFor="let i of chartData">
+      <md-card-title ><h3>{{i.name |uppercase}}</h3></md-card-title>
+      <md-card-content>
+        <div style="display: block">
+          <canvas baseChart [data]="i.data" [labels]="i.label" [chartType]="i.chart" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
