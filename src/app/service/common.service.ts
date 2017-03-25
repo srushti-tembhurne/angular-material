@@ -16,7 +16,7 @@ export class CommonService {
   userName: string;
   token: string;
   // visible:boolean = true;
-  constructor(private http: Http, private router: Router, private dialog: MdDialog) {
+  constructor(private http: Http, public router: Router, private dialog: MdDialog) {
     this.navFlag = false;
   }
   setUserName(name) {
@@ -240,5 +240,16 @@ export class CommonService {
   }
   onCancel() {
     this.router.navigateByUrl('/');
+  }
+
+  setStorage(key, value) {
+    this. removeStorage(key);
+    window.sessionStorage.setItem(key, value);
+  }
+  getStorage(key) {
+    return window.sessionStorage.getItem(key);
+  }
+  removeStorage(key) {
+    window.sessionStorage.removeItem(key);
   }
 }

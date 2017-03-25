@@ -8,7 +8,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { RequestComponent } from './component/request/request.component'
 import { ResourcesComponent } from './component/resources/resources.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
-import { ConstructionComponent} from './component/construction/construction.component';
+import { ConstructionComponent } from './component/construction/construction.component';
 
 export const ROUTES: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,10 +21,11 @@ export const ROUTES: Routes = [
             { path: 'requests', component: RequestComponent },
             { path: 'resource', component: ResourcesComponent },
             { path: 'inventory', component: InventoryComponent },
-            { path: '*',component:ConstructionComponent}
+            { path: '**', component: ConstructionComponent }
         ]
     },
-    { path: 'login', component: LoginComponent }
+    { path: 'login', component: LoginComponent },
+    { path: '**', component: ConstructionComponent }
 ];
 
 export const ROUTING: ModuleWithProviders = RouterModule.forRoot(ROUTES);

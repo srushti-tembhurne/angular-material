@@ -3,7 +3,7 @@
     <nav class="main">
       <ul>
         <li *ngFor="let list of links">
-          <a *ngIf="list.submenu==undefined " [routerLink]="[list.path]" (click)="sidenav.close()">{{list.name}}</a>
+          <a *ngIf="list.submenu==undefined " [routerLink]="[list.path]" RouterLinkActive="active"(click)="sidenav.close()">{{list.name}}</a>
           <nav class="sub" *ngIf="list.submenu!=undefined">
             <h6 *ngIf="list.submenu!=undefined" (click)="submenu($event)">{{list.name}}<i class="material-icons" [hidden]="shown">&#xE315;</i><i class="material-icons" [hidden]="!shown">&#xE313;</i></h6>
             <ul [hidden]="shown">

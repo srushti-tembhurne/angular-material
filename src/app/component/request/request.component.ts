@@ -14,40 +14,53 @@ export class RequestComponent implements OnInit {
     edit: {
       confirmSave: true
     },
-    columns: {
-      a_id: {
+    columns: {     
+      _id: {
         title: 'ID'
       },
-       b_vmName: {
-        title: 'VM Name',
+      resourceId: {
+        title: 'Resource Id',
         editable: false
       },
-      c_cores: {
-        title: 'CPU'
+      jobId: {
+        title: 'Job Id'
       },
-      
-      d_memory: {
-        title: 'Memory'
+
+      name: {
+        title: 'Name'
       },
-      e_storage: {
-        title: 'Storage'
+      description: {
+        title: 'Description'
       },
-      f_os: {
-        title: 'Operting System'
+      createdOn: {
+        title: 'Created On'
       },
-      g_status:{
-        title:'Status'
+      operation: {
+        title: 'Operation'
+      },
+      type: {
+        title: 'Type'
+      },
+      status: {
+        title: 'Status'
       }
-     
     },
     actions: {
       add: false,
-      edit: false,
+      edit: true,
       delete: false
     },
     pager: {
       display: true
-     
+
+    },
+    mode:'external',
+    editor: {
+      type: 'checkbox',
+      config: {
+        true: true,
+        false: false
+      }
     }
   };
 
@@ -65,7 +78,8 @@ export class RequestComponent implements OnInit {
         if (data.status) {
           this.Requestdata = [];
           DataArray = data.data;
-          for (let i = 0; i < DataArray.length - 1; i++) {
+          console.log(DataArray);
+          /*for (let i = 0; i < DataArray.length - 1; i++) {
             let props = "parameter_" + i;
             paramArray[props] = DataArray[i].parameters;
             let tempObj = {};
@@ -76,10 +90,10 @@ export class RequestComponent implements OnInit {
             tempObj["a_id"] = i + 1;
             tempObj[String.fromCharCode(98+j)+"_"+"status"]=DataArray[i].status;
             this.Requestdata.push(tempObj);
-          }
+          }*/
           this.data = new LocalDataSource();
-          this.data.load(this.Requestdata);
-          
+          this.data.load(DataArray);
+
 
         } else if (!status && (str.includes("Failed to authenticate token") || str.includes("no token found"))/*(str.indexOf("Failed to authenticate token")>-1||str.indexOf("no token found"))*/) {
           this.CS.onlogout();
@@ -92,7 +106,12 @@ export class RequestComponent implements OnInit {
   ngOnInit() {
     this.CS.isLoggedIn();
     this.getData();
-  } 
+  }
+  onEdit(event){
+    this.CS.sendData(event.data);
+    this.CS.router.navigateByUrl('home/create-vm');
+    console.log(event);
+  }
 
 }
 

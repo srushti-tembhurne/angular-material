@@ -27,23 +27,23 @@ export class CreateVmComponent implements OnInit {
             type: ['VM', Validators.required],
             operation: ['CREATE', [Validators.required]],
             vmName: ['', Validators.required],
-            OS: ['', Validators.required],
-            diskSize: ['', Validators.required],
-            cpuCore: ['', Validators.required],
-            Memory: ['', Validators.required],
+            os: ['', Validators.required],
+            storage: ['', Validators.required],
+            cores: ['', Validators.required],
+            memory: ['', Validators.required],
 
         });
     }
- showDialog(msg) {
-       let dialogRef = this.dialog.open(DialogComponent, {           
+    showDialog(msg) {
+        let dialogRef = this.dialog.open(DialogComponent, {
             data: {
-                message: "Request "+msg
+                message: "Request " + msg
             }
         });
     }
-    onSubmit() {        
+    onSubmit() {
         let model = this.vmcreationForm.value;
-        this.formdata = { name: model.Name, description: model.description, type: model.type, operation: model.operation, parameters: [{ name: "vmName", value: model.vmName, type: "STRING" }, { name: "cores", value: model.cpuCore, type: "NUMBER" }, { name: "memory", value: model.Memory, type: "NUMBER" }, { name: "storage", value: model.diskSize, type: "NUMBER" }, { name: "os", value: model.OS, type: "STRING" }] }
+        this.formdata = { name: model.Name, description: model.description, type: model.type, operation: model.operation, parameters: [{ name: "vmName", value: model.vmName, type: "STRING" }, { name: "cores", value: model.cores, type: "NUMBER" }, { name: "memory", value: model.memory, type: "NUMBER" }, { name: "storage", value: model.storage, type: "NUMBER" }, { name: "os", value: model.os, type: "STRING" }] }
         this.CS.postService('/api/v1/request', this.formdata).subscribe(
             data => {
                 let str = new String(data.message);
@@ -51,39 +51,27 @@ export class CreateVmComponent implements OnInit {
                 if (this.Res.status) {
                     this.showDialog(this.Res.data.status);
                     this.vmcreationForm.reset();
-                } else if (str.indexOf("Failed to authenticate token") > -1) {
-                    this.CS.onlogout();                    
-                } else if (!this.Res.status) {
-                    
-                }                
+                    this.CS.removeStorage("createvm");
+                }
             },
             err => {
-                let res=JSON.parse(err._body);
+                let res = JSON.parse(err._body);
                 if (!res.status) {
                     console.log(err);
-                    this.showDialog(""+err.status +" "+res.message+" ");
+                    this.showDialog("" + err.status + " " + res.message + " ");
                 }
-                
+
             },
             () => { console.log("err"); });
     }
-    redirectToHome() {      
-        if (this.cancelFlag) {
-            if (this.Res.result == "Request saved") {
-                this.CS.onCancel();
-            } else {
-                console.log("Error in Form");
-            }
-
-        } else {
-            this.CS.onlogout();
-        }
-    }
     backToHome() {
+        this.CS.removeStorage("createvm");
         this.router.navigateByUrl('/home');
     }
     ngOnInit() {
         this.CS.isLoggedIn();
+        this.setFormData();
+
     }
     onlyNumberKey(event) {
         let charCode = (event.which) ? event.which : event.keyCode;
@@ -92,8 +80,34 @@ export class CreateVmComponent implements OnInit {
             return false;
         return true;
     }
+    setFormData() {
+        let tempObj = {};
+        tempObj = this.CS.recievData();
+        let finalObj;
+        if (tempObj) {
+            let invt = {};
+            for (let props in tempObj["parameters"]) {
+                let temp = tempObj["parameters"][props];
+                invt[temp["name"]] = temp["value"];
+            }
+            let tto = {
+                Name: tempObj["name"] || tempObj["Name"],
+                description: tempObj["description"],
+                type: tempObj["type"],
+                operation: tempObj["operation"]
+            }
+            finalObj = Object.assign(tto, invt);
+            this.vmcreationForm.setValue(finalObj);
+            this.CS.setStorage("createvm", JSON.stringify(finalObj));
 
-   
+        } else if (JSON.parse(this.CS.getStorage('createvm'))) {
+            finalObj = JSON.parse(this.CS.getStorage('createvm'));
+            this.vmcreationForm.setValue(finalObj);
+            this.CS.setStorage("createvm", JSON.stringify(finalObj));
+        }
+
+    }
+
 }
 
 
