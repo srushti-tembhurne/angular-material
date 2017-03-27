@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
             password: '',
             userAgent: [this.userAgent, [Validators.required]]
         });       
-        this.CS.isLoggedIn();
+        //this.CS.isLoggedIn();
 
     }
 

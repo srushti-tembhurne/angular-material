@@ -170,21 +170,16 @@ export class CommonService {
   //function used to recieve data wich was sent by sendData method
   recievData() { return this.data; }
   //Method used to check the user is loggedin or not and redirect respectivley 
-  isLoggedIn() {
+  isLoggedIn(): boolean {   
     const pathName: string = window.location.pathname;
     if (window.sessionStorage) {
-      this.userDetails = window.sessionStorage.getItem('username');
+      this.userDetails = window.sessionStorage.getItem('token');
     }
     if (this.userDetails == "undefined" || this.userDetails == null || this.userDetails == "") {
-      this.router.navigateByUrl('/login');
-    } else {
-
-      if (pathName.indexOf('login') > -1) {
-        this.router.navigateByUrl('/home');
-      } else {
-        this.router.navigateByUrl(pathName);
-      }
-
+       this.router.navigate(["/login"]);
+      return false;
+    } else {          
+      return true;
     }
   }
   onlogout() {
@@ -243,7 +238,7 @@ export class CommonService {
   }
 
   setStorage(key, value) {
-    this. removeStorage(key);
+    this.removeStorage(key);
     window.sessionStorage.setItem(key, value);
   }
   getStorage(key) {

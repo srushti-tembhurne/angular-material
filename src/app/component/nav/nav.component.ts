@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CommonService } from '../../service/common.service';
 
 @Component({
   selector: 'app-nav',
@@ -13,21 +12,13 @@ export class NavComponent implements OnInit {
   shown: boolean;
   showNav: boolean;
   sideNav: boolean = true;
-  User: string;
-  constructor(private CS: CommonService) {
+  constructor() {
     this.links = [
-      { name: 'Home', path: '/home', icon: 'home' },
-      { name: 'Requests', path: 'requests',icon:'screen_share' },
-      { name: 'Resource', path: 'resource', icon:/*'desktop_windows'*/'important_devices' },
-      {
-        name: 'VM', path: "create-vm", submenu: [
-          { path: "create-vm", name: "Create",icon:'add_to_queue' },
-          { path: "Monitor", name: "Monitor", icon:'autorenew' },
-          { path: "list", name: "List", icon:'list' }
-        ]
-      },
-      { name: 'About Us', path: 'about', icon:'group'},
-      { name: 'Contact Us', path: 'create-vm', icon:'local_phone' }
+      { name: 'Home', path: '/home' },
+      { name: 'Requests', path: 'requests' },
+      { name: 'Resource', path: 'resource' },     
+      { name: 'About Us', path: 'about' },
+      { name: 'Contact Us', path: 'contactus' }
 
     ];
     this.shown = true;
@@ -48,10 +39,14 @@ export class NavComponent implements OnInit {
     }
   }
   ngOnInit() {
-    this.User = this.CS.getUserName();
-  }
-  logout() {
-   this.CS.onlogout();
   }
 
 }
+
+/** {
+        name: 'VM', path: "create-vm", submenu: [
+          { path: "create-vm", name: "Create" },
+          { path: "Monitor", name: "Monitor" },
+          { path: "list", name: "List" }
+        ]
+      },*/

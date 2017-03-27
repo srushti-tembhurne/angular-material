@@ -1,10 +1,11 @@
 <div class="row">
   <md-toolbar color="primary" class="col-12" >
-    <md-icon (click)="sidenav.toggle()" class="spacing pointer">menu</md-icon>
+    <md-icon (click)="sidenav.toggle()">menu</md-icon>
     <span>Datacenter Management Framework</span>
      <span class="example-fill-remaining-space"></span>
-     <span class="for-desktop after-bar">Welcome {{User}}</span>
-     <span class="for-desktop pointer" (click)="logout()">Logout</span>
+     <span class="spacing">Welcome </span>
+     <span class="spacing"> {{User}}</span>
+     <span class="spacing" (click)="logout()">Logout</span>
   </md-toolbar>
 </div>
 <div class="row">

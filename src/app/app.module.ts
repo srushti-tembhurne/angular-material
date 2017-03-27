@@ -22,6 +22,9 @@ import { ResourcesComponent } from './component/resources/resources.component';
 import { DialogComponent } from './component/dialog/dialog.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
 import { ConstructionComponent } from './component/construction/construction.component';
+import { SuccessDialogComponent } from './component/success-dialog/success-dialog.component';
+import { PopUpDialogComponent } from './component/pop-up-dialog/pop-up-dialog.component';
+import { AuthgaurdService } from './service/authgaurd.service';
 
 
 
@@ -38,7 +41,9 @@ import { ConstructionComponent } from './component/construction/construction.com
     ResourcesComponent,
     DialogComponent,
     InventoryComponent,
-    ConstructionComponent
+    ConstructionComponent,
+    SuccessDialogComponent,
+    PopUpDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -50,10 +55,10 @@ import { ConstructionComponent } from './component/construction/construction.com
     ChartsModule,
     Ng2SmartTableModule
   ],
-   entryComponents: [ 
-    DialogComponent 
+  entryComponents: [
+    DialogComponent, SuccessDialogComponent, PopUpDialogComponent
   ],
-  providers: [CommonService],
+  providers: [CommonService,AuthgaurdService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

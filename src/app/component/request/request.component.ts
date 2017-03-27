@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../service/common.service';
 import { LocalDataSource, ServerDataSource, Ng2SmartTableComponent } from 'ng2-smart-table';
-import { DomSanitizer } from '@angular/platform-browser';
+import {MdDialog} from '@angular/material';
+import {PopUpDialogComponent} from '../pop-up-dialog/pop-up-dialog.component';
 
 @Component({
   selector: 'app-request',
@@ -11,7 +12,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class RequestComponent implements OnInit {
   Requestdata: any;
   data: LocalDataSource;
-  input:string = '<i class="material-icons">info</i>';
   settings = {
     edit: {
       confirmSave: true
@@ -45,11 +45,6 @@ export class RequestComponent implements OnInit {
       },
       status: {
         title: 'Status'
-      },
-      Info:{
-        title: 'Info',
-        type:'html',
-        valuePrepareFunction: (value) => { return this.DS.bypassSecurityTrustHtml(this.input); }
       }
     },
     actions: {
@@ -71,7 +66,7 @@ export class RequestComponent implements OnInit {
     }
   };
 
-  constructor(private CS: CommonService,private DS: DomSanitizer) {
+  constructor(private CS: CommonService,public dialog:MdDialog) {
   }
   getData() {
     this.CS.getService('/api/v1/request').subscribe(
@@ -111,13 +106,27 @@ export class RequestComponent implements OnInit {
       () => { });
   }
   ngOnInit() {
-    this.CS.isLoggedIn();
+    //this.CS.isLoggedIn();
     this.getData();
   }
   onEdit(event){
     this.CS.sendData(event.data);
     this.CS.router.navigateByUrl('home/create-vm');
-    console.log(event);
+  }
+  addNewRequest(){
+    this.CS.router.navigateByUrl('home/create-vm');
+  }
+  onUserRowSelect(event)
+  {   
+    this.showPopup(event.data)
+  }
+  showPopup(data)
+  {
+    let dialogRef=this.dialog.open(PopUpDialogComponent,{
+      data:{
+        info:data
+      }
+    });
   }
 
 }

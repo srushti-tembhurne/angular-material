@@ -3,17 +3,3 @@
  .mat-sidenav-content{
     overflow: hidden !important;;
  }
-.for-desktop{
-    display: block;
-}
-.pointer{
-    cursor: pointer;
-}
-@media (max-width: 767px){
-    .for-desktop{
-        display: none;
-    }
-    .mat-sidenav{
-        padding: 0;
-    }
-}

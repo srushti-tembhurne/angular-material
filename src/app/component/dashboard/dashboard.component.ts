@@ -19,7 +19,6 @@ export class DashboardComponent implements OnInit {
     this.count = [1, 2, 3, 4, 5];
   }
   ngOnInit() {
-    this.CS.isLoggedIn();
     this.CS.getService('/api/v1/requests/inventory').subscribe(
       data => {
         this.drawChart(data.data);

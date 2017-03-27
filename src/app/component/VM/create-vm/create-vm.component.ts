@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 import { DialogComponent } from '../../dialog/dialog.component';
 import { CommonService } from '../../../service/common.service';
+import { SuccessDialogComponent } from '../../success-dialog/success-dialog.component';
 
 @Component({
     selector: 'app-create-vm',
@@ -35,10 +36,13 @@ export class CreateVmComponent implements OnInit {
         });
     }
     showDialog(msg) {
-        let dialogRef = this.dialog.open(DialogComponent, {
+        let dialogRef = this.dialog.open(SuccessDialogComponent, {
             data: {
                 message: "Request " + msg
             }
+        });
+        dialogRef.afterClosed().subscribe(result=>{
+            this.CS.router.navigateByUrl('home/requests');
         });
     }
     onSubmit() {
@@ -66,10 +70,10 @@ export class CreateVmComponent implements OnInit {
     }
     backToHome() {
         this.CS.removeStorage("createvm");
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('home/requests');
     }
     ngOnInit() {
-        this.CS.isLoggedIn();
+        //this.CS.isLoggedIn();       
         this.setFormData();
 
     }
