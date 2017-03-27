@@ -15,12 +15,12 @@ export class ResourcesComponent implements OnInit {
         title: "Id",
         editable: false
       },
-      name: {
-        title: "Name",
-        editable: false
-      },
       type: {
         title: "Type",
+        editable: false
+      },
+      name: {
+        title: "Name",
         editable: false
       },
       userId: {

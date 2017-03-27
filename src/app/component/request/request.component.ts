@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { CommonService } from '../../service/common.service';
 import { LocalDataSource, ServerDataSource, Ng2SmartTableComponent } from 'ng2-smart-table';
 import {MdDialog} from '@angular/material';
@@ -10,10 +10,11 @@ import {DomSanitizer} from '@angular/platform-browser';
   templateUrl: './request.component.html',
   styleUrls: ['./request.component.scss']
 })
+
 export class RequestComponent implements OnInit {
   Requestdata: any;
   data: LocalDataSource;
-  input:string = '<i class="material-icons">info</i>';
+  input:string = '<i class="material-icons pointer">info</i>';
   settings = {
     edit: {
       confirmSave: true
@@ -29,24 +30,23 @@ export class RequestComponent implements OnInit {
       jobId: {
         title: 'Job Id'
       },
-
+      type: {
+        title: 'Type'
+      },
+      operation: {
+        title: 'Operation'
+      },
       name: {
         title: 'Name'
       },
       description: {
         title: 'Description'
       },
-      createdOn: {
-        title: 'Created On'
-      },
-      operation: {
-        title: 'Operation'
-      },
-      type: {
-        title: 'Type'
-      },
       status: {
         title: 'Status'
+      },
+      createdOn: {
+        title: 'Created On'
       },
       Info:{
         title: 'Info',
@@ -73,7 +73,7 @@ export class RequestComponent implements OnInit {
     }
   };
 
-  constructor(private CS: CommonService,public dialog:MdDialog,public DS:DomSanitizer) {
+  constructor(private CS: CommonService,public dialog:MdDialog,public DS:DomSanitizer,public element: ElementRef) {
   }
   getData() {
     this.CS.getService('/api/v1/request').subscribe(
@@ -124,7 +124,7 @@ export class RequestComponent implements OnInit {
     this.CS.router.navigateByUrl('home/create-vm');
   }
   onUserRowSelect(event)
-  {   
+  {
     this.showPopup(event.data)
   }
   showPopup(data)

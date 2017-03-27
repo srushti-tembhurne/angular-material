@@ -6,6 +6,12 @@ md-sidenav-container{
 md-card{
     margin: 5px;
 }
+.header{
+    height: 64px;
+}
+.rest-content{
+    height:calc(100% - 64px);
+}
 .example-fill-remaining-space {
   // This fills the remaining space, by using flexbox. 
   // Every toolbar row uses a flexbox row layout.
@@ -21,4 +27,9 @@ md-card{
 }
 router-outlet{
     width: 100%;
+}
+@media (max-width: 767px){
+    .header-title{
+        font-size: 17px;
+    }
 }

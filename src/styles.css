@@ -1,13 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
  @import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
- .mat-sidenav-content{
-    overflow: hidden !important;;
- }
+ html, body,.container-fluid{
+    height: 100%;
+}
+.container-fluid > .row{
+    height: inherit;
+}
  .for-desktop{
     display: block;
 }
 .pointer{
     cursor: pointer;
+}
+.mat-card-title h2{
+    font-size: 27px;
 }
 @media (max-width: 767px){
     .for-desktop{
@@ -15,5 +21,10 @@
     }
     .mat-sidenav{
         padding: 0;
+    }
+}
+@media (max-width: 600px){
+    .mat-card{
+        padding: 24px !important;
     }
 }
