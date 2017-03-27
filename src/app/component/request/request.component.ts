@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../service/common.service';
 import { LocalDataSource, ServerDataSource, Ng2SmartTableComponent } from 'ng2-smart-table';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-request',
@@ -10,6 +11,7 @@ import { LocalDataSource, ServerDataSource, Ng2SmartTableComponent } from 'ng2-s
 export class RequestComponent implements OnInit {
   Requestdata: any;
   data: LocalDataSource;
+  input:string = '<i class="material-icons">info</i>';
   settings = {
     edit: {
       confirmSave: true
@@ -43,6 +45,11 @@ export class RequestComponent implements OnInit {
       },
       status: {
         title: 'Status'
+      },
+      Info:{
+        title: 'Info',
+        type:'html',
+        valuePrepareFunction: (value) => { return this.DS.bypassSecurityTrustHtml(this.input); }
       }
     },
     actions: {
@@ -64,7 +71,7 @@ export class RequestComponent implements OnInit {
     }
   };
 
-  constructor(private CS: CommonService) {
+  constructor(private CS: CommonService,private DS: DomSanitizer) {
   }
   getData() {
     this.CS.getService('/api/v1/request').subscribe(
