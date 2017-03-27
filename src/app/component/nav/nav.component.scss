@@ -1,3 +1,8 @@
+$bg-lightgray:#fafafa;
+$theme-purple:#673ab7;
+$text-white:#fff;
+$text-black:#000;
+$active-red:#f00;
 .mat-sidenav-focus-trap{
     height: 100%;
 }
@@ -45,10 +50,10 @@ nav h6,material-icons{
     margin: 0;
     padding: 0 16px;
     background: rgba(0,0,0,.32);
-    color: #fff;
+    color: $text-white;
 }
 
-nav ul li > a{
+nav ul li > a,span{
    box-sizing: border-box;
     display: block;
     font-size: 14px;
@@ -62,14 +67,25 @@ nav ul li > a{
 }
 nav ul li > a:hover
 {
-    background: #fafafa;
-    color: #673ab7;
-    //color: #00bcd4;
+    background: $bg-lightgray;
+    color: $theme-purple;
 }
  a{
     text-decoration:none;
-    color: black;
+    color: $text-black;
 }
 .active{
-    border-left: 5px solid red;
+    border-left: 5px solid $active-red;
+}
+.for-mobile{
+    display: none;
+}
+.list-icons{
+    vertical-align: middle;
+    padding: 0 5px 5px 0;
+}
+@media (max-width: 767px){
+    .for-mobile{
+        display: block;
+    }
 }

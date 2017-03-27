@@ -3,6 +3,7 @@ import { CommonService } from '../../service/common.service';
 import { LocalDataSource, ServerDataSource, Ng2SmartTableComponent } from 'ng2-smart-table';
 import {MdDialog} from '@angular/material';
 import {PopUpDialogComponent} from '../pop-up-dialog/pop-up-dialog.component';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-request',
@@ -12,6 +13,7 @@ import {PopUpDialogComponent} from '../pop-up-dialog/pop-up-dialog.component';
 export class RequestComponent implements OnInit {
   Requestdata: any;
   data: LocalDataSource;
+  input:string = '<i class="material-icons">info</i>';
   settings = {
     edit: {
       confirmSave: true
@@ -45,6 +47,11 @@ export class RequestComponent implements OnInit {
       },
       status: {
         title: 'Status'
+      },
+      Info:{
+        title: 'Info',
+        type:'html',
+        valuePrepareFunction: (value) => { return this.DS.bypassSecurityTrustHtml(this.input)}
       }
     },
     actions: {
@@ -66,7 +73,7 @@ export class RequestComponent implements OnInit {
     }
   };
 
-  constructor(private CS: CommonService,public dialog:MdDialog) {
+  constructor(private CS: CommonService,public dialog:MdDialog,public DS:DomSanitizer) {
   }
   getData() {
     this.CS.getService('/api/v1/request').subscribe(
