@@ -55,6 +55,15 @@ export class ResourcesComponent implements OnInit {
       data => {
         this.data = new LocalDataSource();
         this.data.load(data.data);
+      },
+      err=>{
+          if(err.status==401)
+        {
+          this.CS.showDialog(err);
+        }else{
+          this.CS.ShowErrorDialog(err);
+        }
+         
       }
     );
   }

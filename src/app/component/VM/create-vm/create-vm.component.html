@@ -26,7 +26,7 @@
       </div>
       <div class="form-group">
         <md-input-container class="col-12">
-          <input mdInput placeholder="VM Name" formControlName="vmName" id="vmName" required>
+          <input mdInput placeholder="VM Name" formControlName="vmName" id="vmName" required (keypress)="notAllowSpaces($event)">
         </md-input-container>
       </div>
       <div class="form-group">

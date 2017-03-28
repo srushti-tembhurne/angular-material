@@ -11,7 +11,7 @@ export class PopUpDialogComponent implements OnInit {
   settings = {
     columns: {
       name: {
-        title: "",
+        title: "Name",
         filter:"disable"
       },
       value: {
@@ -28,7 +28,7 @@ export class PopUpDialogComponent implements OnInit {
       display: true
     },
      hideSubHeader:true,
-     hideHeader:true
+     hideHeader:false
     
   };
   private parameters: any[];

@@ -24,10 +24,12 @@ export class DashboardComponent implements OnInit {
         this.drawChart(data.data);
       },
       err => { 
-        if(err.status==401)
+          if(err.status==401)
         {
-          this.CS.onlogout();
-        }        
+          this.CS.showDialog(err);
+        }else{
+          this.CS.ShowErrorDialog(err);
+        }
       },
       () => { }
     );

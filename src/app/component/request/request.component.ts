@@ -1,9 +1,9 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { CommonService } from '../../service/common.service';
 import { LocalDataSource, ServerDataSource, Ng2SmartTableComponent } from 'ng2-smart-table';
-import {MdDialog} from '@angular/material';
-import {PopUpDialogComponent} from '../pop-up-dialog/pop-up-dialog.component';
-import {DomSanitizer} from '@angular/platform-browser';
+import { MdDialog } from '@angular/material';
+import { PopUpDialogComponent } from '../pop-up-dialog/pop-up-dialog.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-request',
@@ -14,22 +14,13 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class RequestComponent implements OnInit {
   Requestdata: any;
   data: LocalDataSource;
-  input:string = '<i class="material-icons pointer">info</i>';
+  input: string = '<i class="material-icons pointer" (click)="onUserRowSelect()">info</i>';
   settings = {
     edit: {
       confirmSave: true
     },
-    columns: {     
-      _id: {
-        title: 'ID'
-      },
-      resourceId: {
-        title: 'Resource Id',
-        editable: false
-      },
-      jobId: {
-        title: 'Job Id'
-      },
+    columns: {
+
       type: {
         title: 'Type'
       },
@@ -48,22 +39,22 @@ export class RequestComponent implements OnInit {
       createdOn: {
         title: 'Created On'
       },
-      Info:{
+      Info: {
         title: 'Info',
-        type:'html',
-        valuePrepareFunction: (value) => { return this.DS.bypassSecurityTrustHtml(this.input)}
+        type: 'html',
+        valuePrepareFunction: (value) => { return this.DS.bypassSecurityTrustHtml(this.input) }
       }
     },
     actions: {
       add: false,
-      edit: true,
+      edit: false,
       delete: false
     },
     pager: {
       display: true
 
     },
-    mode:'external',
+    mode: 'external',
     editor: {
       type: 'checkbox',
       config: {
@@ -73,7 +64,7 @@ export class RequestComponent implements OnInit {
     }
   };
 
-  constructor(private CS: CommonService,public dialog:MdDialog,public DS:DomSanitizer,public element: ElementRef) {
+  constructor(private CS: CommonService, public dialog: MdDialog, public DS: DomSanitizer, public element: ElementRef) {
   }
   getData() {
     this.CS.getService('/api/v1/request').subscribe(
@@ -87,19 +78,6 @@ export class RequestComponent implements OnInit {
         if (data.status) {
           this.Requestdata = [];
           DataArray = data.data;
-          console.log(DataArray);
-          /*for (let i = 0; i < DataArray.length - 1; i++) {
-            let props = "parameter_" + i;
-            paramArray[props] = DataArray[i].parameters;
-            let tempObj = {};
-            for (var j = 0; j < paramArray[props].length; j++) {
-              let prop_name=String.fromCharCode(98+j)+"_"+paramArray[props][j].name;
-              tempObj[prop_name] = paramArray[props][j].value;
-            }
-            tempObj["a_id"] = i + 1;
-            tempObj[String.fromCharCode(98+j)+"_"+"status"]=DataArray[i].status;
-            this.Requestdata.push(tempObj);
-          }*/
           this.data = new LocalDataSource();
           this.data.load(DataArray);
 
@@ -109,29 +87,35 @@ export class RequestComponent implements OnInit {
         }
 
       },
-      err => { console.log(err) },
+      err => {
+        console.log(err)
+           if(err.status==401)
+        {
+          this.CS.showDialog(err);
+        }else{
+          this.CS.ShowErrorDialog(err);
+        }
+      },
       () => { });
   }
   ngOnInit() {
     //this.CS.isLoggedIn();
     this.getData();
   }
-  onEdit(event){
+  onEdit(event) {
     this.CS.sendData(event.data);
     this.CS.router.navigateByUrl('home/create-vm');
   }
-  addNewRequest(){
+  addNewRequest() {
     this.CS.router.navigateByUrl('home/create-vm');
   }
-  onUserRowSelect(event)
-  {
+  onUserRowSelect(event) {
     this.showPopup(event.data)
   }
-  showPopup(data)
-  {
-    let dialogRef=this.dialog.open(PopUpDialogComponent,{
-      data:{
-        info:data
+  showPopup(data) {
+    let dialogRef = this.dialog.open(PopUpDialogComponent, {
+      data: {
+        info: data
       }
     });
   }

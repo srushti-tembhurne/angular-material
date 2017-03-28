@@ -25,6 +25,7 @@ import { ConstructionComponent } from './component/construction/construction.com
 import { SuccessDialogComponent } from './component/success-dialog/success-dialog.component';
 import { PopUpDialogComponent } from './component/pop-up-dialog/pop-up-dialog.component';
 import { AuthgaurdService } from './service/authgaurd.service';
+import { ErrorDialogComponent } from './component/error-dialog/error-dialog.component';
 
 
 
@@ -43,7 +44,8 @@ import { AuthgaurdService } from './service/authgaurd.service';
     InventoryComponent,
     ConstructionComponent,
     SuccessDialogComponent,
-    PopUpDialogComponent
+    PopUpDialogComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,7 @@ import { AuthgaurdService } from './service/authgaurd.service';
     Ng2SmartTableModule
   ],
   entryComponents: [
-    DialogComponent, SuccessDialogComponent, PopUpDialogComponent
+    DialogComponent, SuccessDialogComponent, PopUpDialogComponent,ErrorDialogComponent
   ],
   providers: [CommonService,AuthgaurdService],
   bootstrap: [AppComponent]

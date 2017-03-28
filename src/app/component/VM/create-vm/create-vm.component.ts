@@ -5,6 +5,7 @@ import { MdDialog } from '@angular/material';
 import { DialogComponent } from '../../dialog/dialog.component';
 import { CommonService } from '../../../service/common.service';
 import { SuccessDialogComponent } from '../../success-dialog/success-dialog.component';
+import { ErrorDialogComponent } from '../../error-dialog/error-dialog.component';
 
 @Component({
     selector: 'app-create-vm',
@@ -38,10 +39,10 @@ export class CreateVmComponent implements OnInit {
     showDialog(msg) {
         let dialogRef = this.dialog.open(SuccessDialogComponent, {
             data: {
-                message: "Request " + msg
+                message: "Request has been successfully " + msg
             }
         });
-        dialogRef.afterClosed().subscribe(result=>{
+        dialogRef.afterClosed().subscribe(result => {
             this.CS.router.navigateByUrl('home/requests');
         });
     }
@@ -59,10 +60,10 @@ export class CreateVmComponent implements OnInit {
                 }
             },
             err => {
-                let res = JSON.parse(err._body);
-                if (!res.status) {
-                    console.log(err);
-                    this.showDialog("" + err.status + " " + res.message + " ");
+                if (err.status == 401) {
+                    this.CS.showDialog(err);
+                } else {
+                    this.CS.ShowErrorDialog(err);
                 }
 
             },
@@ -73,7 +74,7 @@ export class CreateVmComponent implements OnInit {
         this.router.navigateByUrl('home/requests');
     }
     ngOnInit() {
-        //this.CS.isLoggedIn();       
+
         this.setFormData();
 
     }
@@ -83,6 +84,19 @@ export class CreateVmComponent implements OnInit {
             && (charCode < 48 || charCode > 57))
             return false;
         return true;
+    }
+    notAllowSpaces(event){
+        let charCode = (event.which) ? event.which : event.keyCode;
+         return charCode !== 32;
+    }
+    onlyAlphabets(event) {
+        var regex = /^[a-zA-Z]*$/;
+        let charCode = (event.which) ? event.which : event.keyCode;
+        if (regex.test(String.fromCharCode(charCode))){
+            return true;
+        }else{
+            return false;
+        }
     }
     setFormData() {
         let tempObj = {};

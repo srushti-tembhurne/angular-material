@@ -20,8 +20,7 @@ export class NavComponent implements OnInit {
       { name: 'Requests', path: 'requests',icon:'screen_share' },
       { name: 'Resource', path: 'resource', icon:/*'desktop_windows'*/'important_devices' },
       { name: 'About Us', path: 'about', icon:'group'},
-      { name: 'Contact Us', path: 'create-vm', icon:'local_phone' }
-
+      { name: 'Contact Us', path: 'contact', icon:'local_phone' }
     ];
     this.shown = true;
   }

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 
 import { DialogComponent } from '../component/dialog/dialog.component';
+import { ErrorDialogComponent} from '../component/error-dialog/error-dialog.component';
 import 'rxjs/Rx';
 @Injectable()
 export class CommonService {
@@ -223,16 +224,27 @@ export class CommonService {
       },
       () => { });
   }
-  showDialog(msg) {
+  showDialog(err) {
+    let res = JSON.parse(err._body);
     let dialogRef = this.dialog.open(DialogComponent, {
       data: {
-        message: msg
+        message: "Error : " + err.status +" "+res.message
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.router.navigateByUrl('/login');
     });
   }
+   ShowErrorDialog(err)
+    {
+      console.log(err);
+        let res = JSON.parse(err._body);
+        let dialogErrRef=this.dialog.open(ErrorDialogComponent, {
+            data: {
+                message: "Error : " + err.status +" "+res.message
+            }
+        });
+    }
   onCancel() {
     this.router.navigateByUrl('/');
   }
