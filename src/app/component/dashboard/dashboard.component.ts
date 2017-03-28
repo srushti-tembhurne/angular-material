@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../service/common.service';
+import {Color} from 'ng2-charts';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,13 +8,21 @@ import { CommonService } from '../../service/common.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  public doughnutChartData: number[] = [350, 450, 100];
-  public doughnutChartType: string = 'doughnut';
   chartData: any[];
   count: number[];
-
-
+  datasets: any[];
+  /*"#ECEAEB",
+            "#19C5F5"*/
+   colorsOverride: Array<Color> = [{
+   backgroundColor: [
+            "#68B6DD",
+            "#FED403"
+          ],
+    hoverBackgroundColor: [
+            "#68B6DD",
+            "#FED403"
+          ]
+  }];
   constructor(private CS: CommonService) {
     this.chartData = [];
     this.count = [1, 2, 3, 4, 5];
@@ -23,18 +32,17 @@ export class DashboardComponent implements OnInit {
       data => {
         this.drawChart(data.data);
       },
-      err => { 
-          if(err.status==401)
-        {
+      err => {
+        if (err.status == 401) {
           this.CS.showDialog(err);
-        }else{
+        } else {
           this.CS.ShowErrorDialog(err);
         }
       },
       () => { }
     );
   }
-  
+
 
   drawChart(data) {
     let labels: any[];
@@ -50,17 +58,30 @@ export class DashboardComponent implements OnInit {
             break;
           case "available_qty":
           case "used_qty":
-         /* case "total_qty":*/
+            /* case "total_qty":*/
             labels.push(prop);
             dataArr.push(props[prop]);
             break;
         }
       }
+      this.datasets = [
+        {
+          data: dataArr,
+          backgroundColor: [
+            "#f8cb00",
+            "#F86C6B"
+          ],
+          hoverBackgroundColor: [
+            "#F9D533",
+            "#FA9797"
+          ]
+        }];
       temp["label"] = labels;
-      temp["data"] = dataArr;
+      //temp["data"] = dataArr;
+      temp["datasets"] = this.datasets;
       temp["chart"] = "doughnut";
       this.chartData.push(temp);
-    }    
+    }
   }
   // events
   public chartClicked(e: any): void {

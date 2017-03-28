@@ -4,7 +4,7 @@
       <md-card-title ><h3>{{i.name |uppercase}}</h3></md-card-title>
       <md-card-content>
         <div style="display: block">
-          <canvas baseChart [data]="i.data" [labels]="i.label" [chartType]="i.chart" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+          <canvas baseChart [datasets]="i.datasets" [labels]="i.label" [chartType]="i.chart" [colors]="colorsOverride" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
         </div>
       </md-card-content>
     </md-card>
