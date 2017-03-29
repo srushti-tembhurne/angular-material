@@ -23,11 +23,11 @@ export const ROUTES: Routes = [
             { path: 'requests', component: RequestComponent },
             { path: 'resource', component: ResourcesComponent },
             { path: 'inventory', component: InventoryComponent },
-            { path: '**', component: ConstructionComponent }
+            { path: '**', redirectTo: 'home', pathMatch:'full' }
         ]
     },
     { path: 'login', component: LoginComponent },
-    { path: '**', component: ConstructionComponent }
+    { path: '**', redirectTo: 'home', pathMatch:'full' }
 ];
 
 export const ROUTING: ModuleWithProviders = RouterModule.forRoot(ROUTES);

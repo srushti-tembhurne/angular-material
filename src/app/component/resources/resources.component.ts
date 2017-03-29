@@ -11,10 +11,6 @@ import { LocalDataSource } from 'ng2-smart-table';
 export class ResourcesComponent implements OnInit {
   settings = {
     columns: {
-      _id: {
-        title: "Id",
-        editable: false
-      },
       type: {
         title: "Type",
         editable: false
