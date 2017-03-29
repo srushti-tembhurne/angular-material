@@ -110,9 +110,10 @@ export class RequestComponent implements OnInit {
     this.CS.router.navigateByUrl('home/create-vm');
   }
   onUserRowSelect(event) {
-    this.showPopup(event.data)
+    
+    this.showPopup(event.data.parameters)
   }
-  showPopup(data) {
+  showPopup(data) {   
     let dialogRef = this.dialog.open(PopUpDialogComponent, {
       data: {
         info: data

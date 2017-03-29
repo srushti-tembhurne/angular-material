@@ -11,12 +11,12 @@ export class PopUpDialogComponent implements OnInit {
   settings = {
     columns: {
       name: {
-        title: "Name",
-        filter:"disable"
+        title: "Name"
+        
       },
       value: {
-        title: "Values",
-        filter:"disable"
+        title: "Values"
+       
       }
     },
     actions: {
@@ -33,16 +33,31 @@ export class PopUpDialogComponent implements OnInit {
   };
   private parameters: any[];
   constructor(public dialogRef: MdDialogRef<PopUpDialogComponent>, @Inject(MD_DIALOG_DATA) public data: any) {
-    let parameter = [], localdata = [];
-    localdata = this.data.info.parameters;
+    let parameter = [], localdata = [],additionalInfo={};
+    additionalInfo=this.data.additionalInfo||"";
+    localdata = this.data.info;
     for (let i = 0; i < localdata.length; i++) {
+      let propName=localdata[i].name;
+      if(propName =="storage"){
+        propName=propName+" (GB)";
+      }else if(propName =="memory")
+      {
+        propName=propName+" (MB)";
+      }
       parameter.push({
-        "name": localdata[i].name,
-        "value": localdata[i].value,
+        "name": propName.toUpperCase()  ,
+        "value": localdata[i].value ||localdata[i].qty,
       });
+
+    }
+    if(additionalInfo && additionalInfo!=null)
+    {
+      for(let prop in additionalInfo)
+      {
+        parameter.push({"name":prop,"value":additionalInfo[prop]})  
+      }
     }
     this.parameters = parameter;
-    console.log(parameter);
 
   }
 
