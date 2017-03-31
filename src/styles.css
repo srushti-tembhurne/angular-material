@@ -15,6 +15,18 @@
 .mat-card-title h2{
     font-size: 27px;
 }
+/* For Data Table */
+input-filter input{
+    border-radius:0 !important;
+}
+.table td{
+    vertical-align: middle;
+}
+.ng2-smart-pagination
+{
+    display: inline-flex !important;
+}
+/*End of data table*/
 @media (max-width: 767px){
     .for-desktop{
         display: none;
