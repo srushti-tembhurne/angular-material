@@ -14,66 +14,61 @@ import { requestData } from './request-data';
 
 export class RequestComponent implements OnInit {
   //data: LocalDataSource;
-  data:any=requestData.data;
-  input: string = '<i class="material-icons pointer" (click)="onUserRowSelect()">info</i>';
-  settings = {
-    edit: {
-      confirmSave: true
-    },
-    columns: {
-
-      type: {
-        title: 'Type'
-      },
-      operation: {
-        title: 'Operation'
-      },
-      name: {
-        title: 'Name'
-      },
-      description: {
-        title: 'Description'
-      },
-      status: {
-        title: 'Status'
-      },
-      createdOn: {
-        title: 'Created On'
-      },
-      info: {
-        title: 'Info',
-        type: 'html'
-      }
-    },
-    actions: {
-      add: false,
-      edit: false,
-      delete: false
-    },
-    pager: {
-      display: true
-
-    },
-    mode: 'external',
-    editor: {
-      type: 'checkbox',
-      config: {
-        true: true,
-        false: false
-      }
-    }
-  };
-
+  data: any = requestData.data;
+  settings: any;
   constructor(private CS: CommonService, public dialog: MdDialog, public DS: DomSanitizer, public element: ElementRef) {
+    this.data = new LocalDataSource();
+    this.settings = {
+      edit: {
+        confirmSave: true
+      },
+      columns: {
+
+        type: {
+          title: 'Type'
+        },
+        operation: {
+          title: 'Operation'
+        },
+        name: {
+          title: 'Name'
+        },
+        description: {
+          title: 'Description'
+        },
+        status: {
+          title: 'Status'
+        },
+        createdOn: {
+          title: 'Created On',
+          sortDirection:'desc'
+        },
+        Actions: {
+          title: 'Info',
+          type: 'html',
+          valuePrepareFunction: (value) => { return this.DS.bypassSecurityTrustHtml('<i appInfo class="material-icons pointer" >info</i>') },
+          filter: false
+        }
+      },
+      actions: {
+        add: false,
+        edit: false,
+        delete: false
+      },
+      pager: {
+        display: true
+
+      },
+      mode: 'external',     
+    };
   }
   getData() {
     this.CS.getService('/api/v1/request').subscribe(
       data => {
         let DataArray: any;
         if (data.status) {
-          DataArray = data.data;
-          this.data = new LocalDataSource();
-          this.data.load(requestData.data);
+          DataArray = data.data; 
+          this.data.load(DataArray);
         }
       },
       err => {
@@ -87,7 +82,7 @@ export class RequestComponent implements OnInit {
       () => { });
   }
   ngOnInit() {
-     this.getData();
+    this.getData();
   }
   onEdit(event) {
     this.CS.sendData(event.data);
@@ -97,8 +92,7 @@ export class RequestComponent implements OnInit {
     this.CS.router.navigateByUrl('home/create-vm');
   }
   onUserRowSelect(event) {
-    console.log(event);
-    //this.showPopup(event.data.parameters)
+    this.showPopup(event.data.parameters)
   }
   showPopup(data) {
     let dialogRef = this.dialog.open(PopUpDialogComponent, {

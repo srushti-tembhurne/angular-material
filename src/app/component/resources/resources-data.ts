@@ -1,5 +1,4 @@
-{
-    "status":true,
+export const resourceData = {    
         "data":[
             {
                 "_id": "58de06fe6e3db707b4c81670",

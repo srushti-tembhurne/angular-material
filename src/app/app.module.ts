@@ -26,9 +26,13 @@ import { SuccessDialogComponent } from './component/success-dialog/success-dialo
 import { PopUpDialogComponent } from './component/pop-up-dialog/pop-up-dialog.component';
 import { AuthgaurdService } from './service/authgaurd.service';
 import { ErrorDialogComponent } from './component/error-dialog/error-dialog.component';
+import { InfoDirective } from './shared/info.directive';
 
-
-
+import { VMOperationFormComponent } from './component/VM/create-vm/vmoperation-form.component';
+import { CreateVMFormComponent } from './component/VM/create-vm/form/create-vm-form.component';
+import { EditVMFormComponent } from './component/VM/create-vm/form/edit-vm-form.component';
+import { FormDirective } from './component/VM/create-vm/form.directive';
+import { FormService } from './component/VM/create-vm/form.services';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +49,11 @@ import { ErrorDialogComponent } from './component/error-dialog/error-dialog.comp
     ConstructionComponent,
     SuccessDialogComponent,
     PopUpDialogComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    InfoDirective,VMOperationFormComponent,
+    CreateVMFormComponent,
+    EditVMFormComponent,
+    FormDirective
   ],
   imports: [
     BrowserModule,
@@ -58,9 +66,9 @@ import { ErrorDialogComponent } from './component/error-dialog/error-dialog.comp
     Ng2SmartTableModule
   ],
   entryComponents: [
-    DialogComponent, SuccessDialogComponent, PopUpDialogComponent,ErrorDialogComponent
+    DialogComponent, SuccessDialogComponent, PopUpDialogComponent,ErrorDialogComponent,CreateVMFormComponent,EditVMFormComponent
   ],
-  providers: [CommonService,AuthgaurdService],
+  providers: [CommonService,AuthgaurdService,FormService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

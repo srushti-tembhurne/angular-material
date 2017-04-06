@@ -11,7 +11,7 @@
       </md-card-header>
       <hr>
       <md-card-content>
-        <form class="login" [formGroup]="loginForm" (ngSubmit)="onlogin()">
+        <form class="login" [formGroup]="loginForm" (ngSubmit)="onlogin()" novalidate>
           <div class="form-group">
             <md-input-container class="col-12">
               <input mdInput placeholder="UserName" type="text" formControlName="userId" required />

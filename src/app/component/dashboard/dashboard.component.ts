@@ -1,27 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../service/common.service';
-import {Color} from 'ng2-charts';
+import { Color } from 'ng2-charts';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
   chartData: any[];
   count: number[];
   datasets: any[];
-  /*"#ECEAEB",
-            "#19C5F5"*/
-   colorsOverride: Array<Color> = [{
-   backgroundColor: [
-            "#68B6DD",
-            "#FED403"
-          ],
+  /* "#68B6DD","#FED403"*/
+  colorsOverride: Array<Color> = [{
+    backgroundColor: [
+      "#ECEAEB",
+      "#3F51B5"
+    ],
     hoverBackgroundColor: [
-            "#68B6DD",
-            "#FED403"
-          ]
+      "#ECEAEB",
+      "#3F51B5"
+    ]
   }];
   constructor(private CS: CommonService) {
     this.chartData = [];

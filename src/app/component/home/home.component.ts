@@ -6,7 +6,7 @@ import { CommonService } from '../../service/common.service';
 import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
-  templateUrl: './home.component.html',
+  templateUrl: './home.html',
   styleUrls: ['./home.component.scss'],
   host: {
     '(window:resize)': 'onResize($event)'
@@ -26,6 +26,10 @@ export class HomeComponent implements OnInit {
   }
   logout() {
    this.CS.onlogout();
+  }
+  showHideMenu()
+  {
+    return false;
   }
   
 }

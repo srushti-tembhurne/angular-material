@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cli": "^1.0.0-rc.2",
     "@angular/common": "^2.4.0",
     "@angular/compiler": "^2.4.0",
     "@angular/core": "^2.4.0",
@@ -29,6 +30,7 @@
     "ng2-smart-table": "^0.6.0-1",
     "normalize.css": "^5.0.0",
     "rxjs": "^5.1.0",
+    "socket.io-client": "^1.7.3",
     "zone.js": "^0.7.6"
   },
   "devDependencies": {

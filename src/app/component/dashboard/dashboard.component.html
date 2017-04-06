@@ -1,12 +1,17 @@
 <div class="row">
-  <div class="col-10 offset-1" >
-    <md-card class="col-sx-5 col-sm-5 col-md-4 col-lg-4" *ngFor="let i of chartData">
-      <md-card-title ><h3>{{i.name |uppercase}}</h3></md-card-title>
-      <md-card-content>
-        <div style="display: block">
-          <canvas baseChart [datasets]="i.datasets" [labels]="i.label" [chartType]="i.chart" [colors]="colorsOverride" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-        </div>
-      </md-card-content>
-    </md-card>
+  <div class="col-12">
+    <div class="col-10 offset-1 justify-content-xs-center">
+      <md-card class="col-sx-12 col-sm-12 col-md-6 col-lg-4 " *ngFor="let i of chartData"> <!--class="col-sx-5 col-sm-5 col-md-4 col-lg-4 "-->
+        <md-card-title>
+          <h3>{{i.name |uppercase}}</h3>
+        </md-card-title>
+        <md-card-content>
+          <div style="display: block">
+            <canvas baseChart [datasets]="i.datasets" [labels]="i.label" [chartType]="i.chart" [colors]="colorsOverride" (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+          </div>
+        </md-card-content>
+      </md-card>
+    </div>
   </div>
 </div>

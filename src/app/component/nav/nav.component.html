@@ -8,7 +8,7 @@
           <nav class="sub" *ngIf="list.submenu!=undefined">
             <h6 *ngIf="list.submenu!=undefined" (click)="submenu($event)">{{list.name}}<i class="material-icons" [hidden]="shown">&#xE315;</i><i class="material-icons" [hidden]="!shown">&#xE313;</i></h6>
             <ul [hidden]="shown">
-              <li *ngFor="let menu of list.submenu"><a [routerLink]="[menu.path]" (click)="sidenav.close() ;submenu($event)"><i class="material-icons list-icons">{{menu.icon}}</i>{{menu.name}}</a></li>
+              <li *ngFor="let menu of list.submenu"><a [routerLink]="[menu.path]" (click)="sidenav.close();submenu($event)"><i class="material-icons list-icons">{{menu.icon}}</i>{{menu.name}}</a></li>
             </ul>
           </nav>
         </li>
@@ -17,3 +17,4 @@
     </nav>
   </div>
 </div>
+<!--(click)="sidenav.close()"-->
